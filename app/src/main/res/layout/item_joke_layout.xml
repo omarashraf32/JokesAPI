@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginBottom="5dp"
+    android:padding="5dp"
+    app:cardBackgroundColor="#beb"
+    app:cardCornerRadius="14dp"
+    app:cardElevation="4dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txt_jokeId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp"
+
+            android:layout_marginStart="5dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="55" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txt_joke_titel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            tools:text="ggggagagagagf" />
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
