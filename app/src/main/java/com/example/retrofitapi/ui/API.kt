@@ -1,5 +1,6 @@
-package com.example.retrofitapi
+package com.example.retrofitapi.ui
 
+import com.example.retrofitapi.Model.GetjokesResopnce
 import com.example.retrofitapi.Model.jokeResponce
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -16,6 +17,8 @@ interface jokeApiService {
 //    fun getRendomJoke(): Call<jokeResponce> //hya btrg3 list of jokeResponce
 //    //3mlnha fe (Call) leh 3shan hya asnchronous fun mosh 3raf emta httnafez
 // n2olo hna en el function el 3yznah hya (GET) we ndelo el (End Point)
+    @GET("joke/Any?amount=20")
+    fun getjokes():Call<GetjokesResopnce>
 
     @GET("joke/Any")
     fun getRendomJoke(@Query("category") category :String): Call<jokeResponce>
