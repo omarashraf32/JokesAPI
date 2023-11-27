@@ -6,12 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-   <androidx.recyclerview.widget.RecyclerView
-       android:id="@+id/jokes_recycler"
-       android:layout_marginTop="8dp"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       tools:listitem="@layout/item_joke_layout"/>
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_Conteriner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

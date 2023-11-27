@@ -15,7 +15,7 @@ class JokeViewModel : ViewModel() {
 
     val jokeLiveData: MutableLiveData<List<Joke>> = MutableLiveData()
 
-    val massegeLiveData: MutableLiveData<String> = MutableLiveData()
+    val errorMassegeLiveData: MutableLiveData<String> = MutableLiveData()
     fun fetchJokes() {
 
         val fetchService = API.buildService(jokeApiService::class.java)
@@ -29,12 +29,14 @@ class JokeViewModel : ViewModel() {
             ) {
                 //yuor status code is in the range 200 to 299
                 if (response.isSuccessful)
-                    jokeLiveData.value
+                   response.body()?.jokes?.let { jokes ->
+                       jokeLiveData.postValue(jokes)
+                   }
             }
 
             //it's the called when it happens Network Error Or Establishing connection service
             override fun onFailure(call: Call<GetjokesResopnce>, t: Throwable) {
-                massegeLiveData.postValue(t.localizedMessage)
+                errorMassegeLiveData.postValue(t.localizedMessage)
             }
 
         })

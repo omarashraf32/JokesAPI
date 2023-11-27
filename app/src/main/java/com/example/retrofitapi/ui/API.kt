@@ -27,7 +27,7 @@ interface jokeApiService {
     fun getJoke(@Path("id") id :Int): Call<jokeResponce>                     //kda anta 3mlt function btrg3 joke id fe (Path)
 }
 
-object API { //3mle leh el object da??   && hwa hna kda tb2a mbd2 el single ton wla l2????
+object API {
 
 //    private val BASE_URL = "https://v2.jokeapi.dev/"
 //    private val retrofit = Retrofit.Builder()
