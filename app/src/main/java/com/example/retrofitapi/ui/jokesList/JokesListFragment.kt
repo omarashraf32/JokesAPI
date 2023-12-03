@@ -1,4 +1,4 @@
-package com.example.retrofitapi.ui
+package com.example.retrofitapi.ui.jokesList
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,26 +10,29 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.retrofitapi.databinding.FragmentDetailsBinding
-import com.example.retrofitapi.ui.viewmodel.JokeViewModel
+import com.example.retrofitapi.ui.jokesList.viewmodel.JokesListViewModel
 
 
-class DetailsFragment : Fragment() {
+class JokesListFragment : Fragment() {
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
     private lateinit var jokesAdapter: jokesAdapter
-    private lateinit var jokeViewModel: JokeViewModel
+    private lateinit var viewModel: JokesListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
-        setupViews()
-        initViewModel()
-        fetchData()
-        setupLiveDataObservers()
         return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViewModel()
+        setupViews()
+        setupLiveDataObservers()
+        fetchData()
     }
 
     private fun setupViews() {
@@ -37,11 +40,10 @@ class DetailsFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        jokeViewModel = ViewModelProvider(this)[JokeViewModel::class.java]
-
+        viewModel = ViewModelProvider(this)[JokesListViewModel::class.java]
     }
 
-    private fun fetchData() = jokeViewModel.fetchJokes()
+    private fun fetchData() = viewModel.fetchJokes()
 
     private fun setupLiveDataObservers() {
         setupJokesLiveData()
@@ -49,17 +51,23 @@ class DetailsFragment : Fragment() {
     }
 
     private fun setupErrorLiveData() {
-        jokeViewModel.errorMassegeLiveData.observe(viewLifecycleOwner, Observer { massege ->
+        viewModel.errorMessageLiveData.observe(viewLifecycleOwner, Observer { massege ->
             Toast.makeText(context, "Error...", Toast.LENGTH_SHORT).show()
-
         })
     }
 
     private fun setupJokesLiveData() {
-        jokeViewModel.jokeLiveData.observe(viewLifecycleOwner, Observer { jokes ->
-            jokesAdapter.submitList(jokes)
+        viewModel.jokesLiveData.observe(viewLifecycleOwner, Observer { jokes ->
+            if (jokes.isEmpty())
+                showEmptyJokesView()
+            else
+                jokesAdapter.submitList(jokes)
 
         })
+    }
+
+    private fun showEmptyJokesView() {
+
     }
 
     private fun initRecyclerView() {
@@ -69,8 +77,7 @@ class DetailsFragment : Fragment() {
             adapter = jokesAdapter
         }
 
-
     }
-    }
+}
 
 

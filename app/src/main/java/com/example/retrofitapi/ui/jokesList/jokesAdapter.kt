@@ -1,4 +1,4 @@
-package com.example.retrofitapi.ui
+package com.example.retrofitapi.ui.jokesList
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,13 +7,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.retrofitapi.Model.Joke
+import com.example.retrofitapi.model.Joke
 import com.example.retrofitapi.R
 
 
 class jokesAdapter : ListAdapter<Joke, jokesAdapter.UserViweHolder>(UserDiffUtil()) {
-
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViweHolder {
