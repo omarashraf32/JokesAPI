@@ -10,6 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.retrofitapi.databinding.FragmentDetailsBinding
+import com.example.retrofitapi.model.Joke
+import com.example.retrofitapi.repository.jokes.GetJokesResponseStates
 import com.example.retrofitapi.ui.jokesList.viewmodel.JokesListViewModel
 
 
@@ -46,25 +48,25 @@ class JokesListFragment : Fragment() {
     private fun fetchData() = viewModel.fetchJokes()
 
     private fun setupLiveDataObservers() {
-        setupJokesLiveData()
-        setupErrorLiveData()
+        viewModel.getJokesLiveData.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is GetJokesResponseStates.Success -> onGettingJokesSuccess(state.jokesList)
+                is GetJokesResponseStates.Error -> onGettingJokesError(state.errorMsg)
+            }
+        }
     }
 
-    private fun setupErrorLiveData() {
-        viewModel.errorMessageLiveData.observe(viewLifecycleOwner, Observer { massege ->
-            Toast.makeText(context, "Error...", Toast.LENGTH_SHORT).show()
-        })
+    private fun onGettingJokesError(errorMsg: String?) {
+        Toast.makeText(context, "Error...", Toast.LENGTH_SHORT).show()
     }
 
-    private fun setupJokesLiveData() {
-        viewModel.jokesLiveData.observe(viewLifecycleOwner, Observer { jokes ->
-            if (jokes.isEmpty())
-                showEmptyJokesView()
-            else
-                jokesAdapter.submitList(jokes)
-
-        })
+    private fun onGettingJokesSuccess(jokes: List<Joke>) {
+        if (jokes.isEmpty())
+            showEmptyJokesView()
+        else
+            jokesAdapter.submitList(jokes)
     }
+
 
     private fun showEmptyJokesView() {
 

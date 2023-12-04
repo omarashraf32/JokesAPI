@@ -1,6 +1,6 @@
 package com.example.retrofitapi.network
 
-import com.example.retrofitapi.model.GetjokesResopnce
+import com.example.retrofitapi.model.GetjokesResopnse
 import com.example.retrofitapi.model.jokeResponce
 import retrofit2.Call
 import retrofit2.http.GET
@@ -10,7 +10,7 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("joke/Any?amount=20")
-    fun getJokes(): Call<GetjokesResopnce>
+    fun getJokes(): Call<GetjokesResopnse>
 
     @GET("joke/Any")
     fun getRandomJoke(@Query("category") category :String): Call<jokeResponce>

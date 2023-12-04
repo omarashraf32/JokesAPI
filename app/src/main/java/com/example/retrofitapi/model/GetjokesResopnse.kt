@@ -3,7 +3,7 @@ package com.example.retrofitapi.model
 
 import com.google.gson.annotations.SerializedName
 
-data class GetjokesResopnce(
+data class GetjokesResopnse(
     @SerializedName("amount")
     val amount: Int? = 0,
     @SerializedName("error")
