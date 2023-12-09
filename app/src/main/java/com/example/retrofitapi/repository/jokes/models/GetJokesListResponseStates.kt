@@ -1,6 +1,7 @@
 package com.example.retrofitapi.repository.jokes
 
-import com.example.retrofitapi.model.Joke
+import com.example.retrofitapi.models.Joke
+
 sealed class GetJokesResponseStates {
     class Success(val jokesList: List<Joke>) : GetJokesResponseStates()
 

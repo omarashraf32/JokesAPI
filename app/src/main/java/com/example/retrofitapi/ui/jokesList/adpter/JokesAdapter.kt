@@ -1,4 +1,4 @@
-package com.example.retrofitapi.ui.jokesList
+package com.example.retrofitapi.ui.adpter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,12 +7,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.retrofitapi.model.Joke
 import com.example.retrofitapi.R
+import com.example.retrofitapi.models.Joke
 
 
-class jokesAdapter : ListAdapter<Joke, jokesAdapter.UserViweHolder>(UserDiffUtil()) {
-
+class jokesAdapter(var listener: JokeAction) : ListAdapter<Joke, jokesAdapter.UserViweHolder>(UserDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViweHolder {
         return UserViweHolder(
@@ -24,14 +23,25 @@ class jokesAdapter : ListAdapter<Joke, jokesAdapter.UserViweHolder>(UserDiffUtil
         holder.bindData(getItem(position))
     }
 
-    class UserViweHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class UserViweHolder(view: View) : RecyclerView.ViewHolder(view),View.OnClickListener {
         var idJoke: TextView = view.findViewById(R.id.txt_jokeId)
         var titelJoke: TextView = view.findViewById(R.id.txt_joke_titel)
-
         fun bindData(joke: Joke) {
             idJoke.text = joke.id.toString()
             titelJoke.text = joke.category
         }
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION)
+                listener.jokeClick(position)
+        }
+    }
+    interface JokeAction{
+        fun jokeClick(position: Int)
     }
 }
 
@@ -44,3 +54,5 @@ class UserDiffUtil : DiffUtil.ItemCallback<Joke>() {
         return areItemsTheSame(oldItem, newItem)
     }
 }
+
+
